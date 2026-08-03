@@ -1,0 +1,43 @@
+---
+// src/components/Footer.astro
+import { Icon } from "astro-icon/components";
+
+interface FooterLink {
+    label: string;
+    href: string;
+    icon: string;
+    external?: boolean;
+}
+
+interface Props {
+    name: string;
+    links: FooterLink[];
+}
+
+const { name, links } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-navy border-t border-white/10">
+    <div
+        class="max-w-content mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6"
+    >
+        <p class="text-sm text-slate">© {year} {name}. All rights reserved.</p>
+
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
+                        class="flex items-center gap-1.5 text-sm font-medium text-slate hover:text-white transition"
+                    >
+                        <Icon name={link.icon} class="w-4 h-4" />
+                        <span>{link.label}</span>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</footer>

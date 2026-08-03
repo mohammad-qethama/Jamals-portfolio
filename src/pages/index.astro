@@ -1,11 +1,72 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SkillsAstroComponent from "../components/Skills.astro";
+import projects from "../../projects";
+
+/*
+slug={project.slug}
+   title={project.title}
+   description={project.description}
+   cover={project.cover}
+   tags={project.tags}
+*/
+console.log(projects);
+const featured = projects.slice(0, 3);
+//+import "../styles/global.css";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+/**
+ *
+ * interface Props {
+     slug: string;
+     title: string;
+     description: string;
+     cover: string;
+     tags?: string[];
+ }
+ */
 ---
 
 <Layout>
-	<Welcome />
+    <Hero />
+    <About
+        photo="/images/portrait.jpeg"
+        bio="Aeronautical engineer specializing in composite structures and MRO. Focused on structural repair, fatigue analysis, and maintaining airworthiness across commercial fleets."
+        highlights={[
+            { value: "5+", label: "Years" },
+            { value: "40+", label: "Projects" },
+            { value: "JORAMCO", label: "Current" },
+        ]}
+    />
+    <div class="max-w-content mx-auto px-6 py-12">
+        <h1 class="text-2xl font-semibold text-navy mb-8">Projects</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+                featured.map((project) => (
+                    <ProjectCard
+                        slug={project.slug}
+                        title={project.title}
+                        description={project.description}
+                        cover={project.cover}
+                        tags={project.tags}
+                    />
+                ))
+            }
+        </div>
+    </div>
+    <SkillsAstroComponent
+        skills={[
+            "Composite Repairs",
+            "Structural Damage Assessment",
+            "Repair Evaluation",
+            "Aircraft Maintenance Manuals (AMM) & Structural Repair Manuals (SRM)",
+            "Technical Drawing & CAD (AutoCAD, SolidWorks)",
+            "MATLAB & Aeronautical Data Analysis",
+        ]}
+    />
 </Layout>

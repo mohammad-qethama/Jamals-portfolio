@@ -1,0 +1,62 @@
+---
+// src/components/About.astro
+interface Highlight {
+    label: string;
+    value: string;
+}
+
+interface Props {
+    photo: string;
+    bio: string;
+    highlights?: Highlight[];
+}
+
+const { photo, bio, highlights = [] } = Astro.props;
+---
+
+<section class="bg-white">
+    <div class="max-w-content mx-auto px-6 py-16 sm:py-20">
+        <div
+            class="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-10 items-start"
+        >
+            <div class="relative">
+                <div class="absolute -inset-2 rounded-2xl bg-steel/10"></div>
+                <img
+                    src={photo}
+                    alt="Portrait"
+                    loading="lazy"
+                    class="relative w-full aspect-square object-cover rounded-xl border border-slate/20"
+                />
+            </div>
+
+            <div>
+                <p
+                    class="text-s uppercase tracking-[0.12em] text-steel font-semibold mb-3"
+                >
+                    About
+                </p>
+
+                <p class="text-slate leading-relaxed text-[15px] mb-8">
+                    {bio}
+                </p>
+
+                {
+                    highlights.length > 0 && (
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate/15 pt-6">
+                            {highlights.map((h) => (
+                                <div>
+                                    <p class="text-lg font-semibold text-navy">
+                                        {h.value}
+                                    </p>
+                                    <p class="text-xs text-slate uppercase tracking-wide">
+                                        {h.label}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )
+                }
+            </div>
+        </div>
+    </div>
+</section>
