@@ -10,6 +10,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [icon()],
+  site: "https://mohammad-qethama.github.io",
+  base: "/Jamals-portfolio",
 });
 
 // astro.config.mjs
